@@ -20,7 +20,6 @@ build = {
   type = "builtin",
   modules = {
     ["kong.plugins.hello-world.handler"] = "src/handler.lua",
-    ["kong.plugins.hello-world.schema"] = "src/schema.lua",
-    ["kong.plugins.hello-world.access"] = "src/access.lua"
+    ["kong.plugins.hello-world.schema"] = "src/schema.lua"
   }
 }

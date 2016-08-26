@@ -2,7 +2,7 @@ DEV_ROCKS = busted luacheck lua-llthreads2
 BUSTED_ARGS ?= -o gtest -v --exclude-tags=ci
 TEST_CMD ?= bin/busted $(BUSTED_ARGS)
 KONG_PATH ?=/kong
-PLUGIN_NAME := hello-world
+PLUGIN_NAME := kong-plugin-hello-world
 
 .PHONY: install uninstall dev lint test test-integration test-plugins test-all clean
 
@@ -50,4 +50,4 @@ test-all: install-dev
 
 clean:
 	@echo "removing $(PLUGIN_NAME)"
-	-@luarocks remove --tree lua_modules $(PLUGIN_NAME)-*.rockspec 2>@1 /dev/null ||:
+	-@luarocks remove --tree lua_modules $(PLUGIN_NAME)-*.rockspec >/dev/null 2>&1 ||:

@@ -1,10 +1,11 @@
 
-local access = require "kong.plugins.hello-world.access"
+local plugin_handler = require "kong.plugins.hello-world.handler"
 
 describe("hello-world plugin", function()
   local old_ngx = _G.ngx
   -- local stubbed_ndx = nil
   local mock_config
+  local handler
 
   before_each(function()
     local stubbed_ngx = {
@@ -20,6 +21,7 @@ describe("hello-world plugin", function()
     stub(stubbed_ngx, "exit")
     stub(stubbed_ngx, "log")
 
+    handler = plugin_handler()
   end)
 
   after_each(function()
@@ -31,7 +33,7 @@ describe("hello-world plugin", function()
       mock_config = {
         say_hello = true
       }
-      access.execute(mock_config)
+      handler:access(mock_config)
     end)
 
     it("adds the correct header value of Hello World!!!", function()
@@ -49,7 +51,7 @@ describe("hello-world plugin", function()
       mock_config = {
         say_hello = false
       }
-      access.execute(mock_config)
+      handler:access(mock_config)
     end)
 
     it("adds the correct header value of Bye World!!!", function()
