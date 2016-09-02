@@ -10,6 +10,12 @@ mkdir -p $CACHE_DIR
 if [ ! "$(ls -A $CACHE_DIR)" ]; then
   # Not in cache
 
+  # ---------------
+  # Install OpenSSL
+  # ---------------
+  OPENSSL_BASE=openssl-$OPENSSL
+  curl -L http://www.openssl.org/source/$OPENSSL_BASE.tar.gz | tar xz
+
   # -----------------
   # Install OpenResty
   # -----------------
