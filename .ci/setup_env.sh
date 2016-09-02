@@ -74,9 +74,10 @@ pushd $KONG_INSTALL
   luarocks make kong-*.rockspec --local
 popd
 
-
 eval `luarocks path`
 
+echo "LUA_PATH=$LUA_PATH"
+echo "LUA_CPATH=$LUA_CPATH"
 
 # # -------------------------------------
 # # Install ccm & setup Cassandra cluster
