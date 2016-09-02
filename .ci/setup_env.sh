@@ -58,19 +58,19 @@ if [ ! "$(ls -A $CACHE_DIR)" ]; then
 
   rm -rf $LUAROCKS_BASE
 
-  # ----------------
-  # Install Kong
-  # ----------------
-
-  mkdir -p $KONG_INSTALL
-  git clone https://github.com/Mashape/kong.git $KONG_INSTALL
-
-  pushd $KONG_INSTALL
-    git checkout $KONG_VERSION
-    make dev
-  popd
-
 fi
+
+# ----------------
+# Install Kong
+# ----------------
+
+# mkdir -p $KONG_INSTALL
+# git clone https://github.com/Mashape/kong.git $KONG_INSTALL
+#
+# pushd $KONG_INSTALL
+#   git checkout $KONG_VERSION
+#   make dev
+# popd
 
 # export PATH=$PATH:$OPENRESTY_INSTALL/nginx/sbin:$OPENRESTY_INSTALL/bin:$LUAROCKS_INSTALL/bin:$SERF_INSTALL
 export PATH=$PATH:$OPENRESTY_INSTALL/nginx/sbin:$OPENRESTY_INSTALL/bin:$LUAROCKS_INSTALL/bin:$KONG_INSTALL/bin
@@ -95,5 +95,5 @@ eval `luarocks path`
 # nginx -V
 # resty -V
 luarocks --version
-kong version
+# kong version
 # serf version

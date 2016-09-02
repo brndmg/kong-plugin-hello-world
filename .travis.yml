@@ -20,7 +20,7 @@ env:
     - OPENSSL=1.0.2h
     # - CASSANDRA=2.2.7
     - OPENRESTY=1.9.15.1
-    - $CACHE_DIR=$HOME/cache
+    - CACHE_DIR=$HOME/cache
   matrix:
     - TEST_SUITE=lint
     - TEST_SUITE=unit
@@ -31,7 +31,7 @@ before_install:
   - source .ci/setup_env.sh
 
 install:
-  - make install
+  - make install-dev
 
 script:
   - .ci/run_tests.sh
