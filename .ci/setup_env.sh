@@ -3,7 +3,7 @@ set -e
 export OPENRESTY_INSTALL=$CACHE_DIR/openresty
 export LUAROCKS_INSTALL=$CACHE_DIR/luarocks
 # export SERF_INSTALL=$CACHE_DIR/serf
-export KONG_INSTALL=$CACHE_DIR/kong
+export KONG_INSTALL=$KONG_PATH
 
 mkdir -p $CACHE_DIR
 
@@ -64,13 +64,12 @@ fi
 # Install Kong
 # ----------------
 
-# mkdir -p $KONG_INSTALL
-# git clone https://github.com/Mashape/kong.git $KONG_INSTALL
-#
-# pushd $KONG_INSTALL
-#   git checkout $KONG_VERSION
-#   make dev
-# popd
+mkdir -p $KONG_INSTALL
+git clone https://github.com/Mashape/kong.git $KONG_INSTALL
+pushd $KONG_INSTALL
+  git checkout $KONG_VERSION
+  make dev
+popd
 
 # export PATH=$PATH:$OPENRESTY_INSTALL/nginx/sbin:$OPENRESTY_INSTALL/bin:$LUAROCKS_INSTALL/bin:$SERF_INSTALL
 export PATH=$PATH:$OPENRESTY_INSTALL/nginx/sbin:$OPENRESTY_INSTALL/bin:$LUAROCKS_INSTALL/bin:$KONG_INSTALL/bin

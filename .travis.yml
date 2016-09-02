@@ -22,10 +22,11 @@ env:
     # - CASSANDRA=2.2.7
     - OPENRESTY=1.9.15.1
     - CACHE_DIR=$HOME/cache
+    - KONG_PATH=$HOME/kong
   matrix:
     - TEST_SUITE=lint
     - TEST_SUITE=unit
-    - TEST_SUITE=integration
+    # - TEST_SUITE=integration
     # - TEST_SUITE=plugins
 
 before_install:
