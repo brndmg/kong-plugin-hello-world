@@ -1,0 +1,44 @@
+sudo: false
+dist: precise
+notifications:
+  email: false
+
+addons:
+  postgresql: "9.4"
+  # apt:
+  #   packages:
+  #     - dnsmasq
+  #     - net-tools
+  #     - libpcre3-dev
+  #     - build-essential
+
+env:
+  global:
+    # - SERF=0.7.0
+    - LUAROCKS=2.3.0
+    - KONG_VERSION=0.9.0
+    # - OPENSSL=1.0.2h
+    # - CASSANDRA=2.2.7
+    # - OPENRESTY=1.9.15.1
+    - $CACHE_DIR=$HOME/cache
+  matrix:
+    - TEST_SUITE=lint
+    - TEST_SUITE=unit
+    - TEST_SUITE=integration
+    # - TEST_SUITE=plugins
+
+before_install:
+  - source .ci/setup_env.sh
+
+install:
+  - make install
+
+script:
+  - .ci/run_tests.sh
+
+cache:
+  apt: true
+  pip: true
+  directories:
+    - $CACHE_DIR
+    - $HOME/.ccm/repository
