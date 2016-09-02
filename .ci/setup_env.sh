@@ -67,12 +67,14 @@ export PATH=$PATH:$OPENRESTY_INSTALL/nginx/sbin:$OPENRESTY_INSTALL/bin:$LUAROCKS
 # Install Kong
 # ----------------
 
-mkdir -p $KONG_INSTALL
-git clone https://github.com/Mashape/kong.git $KONG_INSTALL
-pushd $KONG_INSTALL
-  git checkout $KONG_VERSION
-  luarocks make kong-*.rockspec --local
-popd
+if [ ! -d $KONG_INSTALL ]; then
+  mkdir -p $KONG_INSTALL
+  git clone https://github.com/Mashape/kong.git $KONG_INSTALL
+  pushd $KONG_INSTALL
+    git checkout $KONG_VERSION
+    luarocks make kong-*.rockspec --local
+  popd
+fi
 
 eval `luarocks path`
 
