@@ -16,6 +16,16 @@ define set_env
 	cd $(KONG_PATH);
 endef
 
+dev: install
+	@for rock in $(DEV_ROCKS) ; do \
+		if ! command -v $$rock > /dev/null ; then \
+      echo $$rock not found, installing via luarocks... ; \
+      luarocks install $$rock ; \
+    else \
+      echo $$rock already installed, skipping ; \
+    fi \
+	done;
+
 lint:
 	@luacheck -q . \
 						--exclude-files 'kong/vendor/**/*.lua' \
@@ -33,7 +43,7 @@ install:
 uninstall:
 	sudo luarocks remove $(PLUGIN_NAME)-*.rockspec
 
-install-dev:
+install-dev: dev
 	luarocks make --tree lua_modules $(PLUGIN_NAME)-*.rockspec
 
 test: install-dev
