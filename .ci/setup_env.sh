@@ -60,6 +60,9 @@ if [ ! "$(ls -A $CACHE_DIR)" ]; then
 
 fi
 
+# export PATH=$PATH:$OPENRESTY_INSTALL/nginx/sbin:$OPENRESTY_INSTALL/bin:$LUAROCKS_INSTALL/bin:$SERF_INSTALL
+export PATH=$PATH:$OPENRESTY_INSTALL/nginx/sbin:$OPENRESTY_INSTALL/bin:$LUAROCKS_INSTALL/bin:$KONG_INSTALL/bin
+
 # ----------------
 # Install Kong
 # ----------------
@@ -71,8 +74,6 @@ pushd $KONG_INSTALL
   luarocks make kong-*.rockspec --local
 popd
 
-# export PATH=$PATH:$OPENRESTY_INSTALL/nginx/sbin:$OPENRESTY_INSTALL/bin:$LUAROCKS_INSTALL/bin:$SERF_INSTALL
-export PATH=$PATH:$OPENRESTY_INSTALL/nginx/sbin:$OPENRESTY_INSTALL/bin:$LUAROCKS_INSTALL/bin:$KONG_INSTALL/bin
 
 eval `luarocks path`
 
