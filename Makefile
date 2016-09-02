@@ -4,7 +4,7 @@ TEST_CMD ?= bin/busted $(BUSTED_ARGS)
 KONG_PATH ?=/kong
 PLUGIN_NAME := kong-plugin-hello-world
 
-.PHONY: install uninstall dev lint test test-integration test-plugins test-all clean
+.PHONY: install install-dev uninstall dev lint test test-integration test-plugins test-all clean
 
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 current_dir := $(dir $(mkfile_path))
@@ -16,7 +16,7 @@ define set_env
 	cd $(KONG_PATH);
 endef
 
-dev: install
+dev:
 	@for rock in $(DEV_ROCKS) ; do \
 		if ! command -v $$rock > /dev/null ; then \
       echo $$rock not found, installing via luarocks... ; \
