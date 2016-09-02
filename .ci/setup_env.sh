@@ -1,6 +1,6 @@
 set -e
 
-# export OPENRESTY_INSTALL=$CACHE_DIR/openresty
+export OPENRESTY_INSTALL=$CACHE_DIR/openresty
 export LUAROCKS_INSTALL=$CACHE_DIR/luarocks
 # export SERF_INSTALL=$CACHE_DIR/serf
 export KONG_INSTALL=$CACHE_DIR/kong
@@ -9,6 +9,28 @@ mkdir -p $CACHE_DIR
 
 if [ ! "$(ls -A $CACHE_DIR)" ]; then
   # Not in cache
+
+  # -----------------
+  # Install OpenResty
+  # -----------------
+  OPENRESTY_BASE=openresty-$OPENRESTY
+  mkdir -p $OPENRESTY_INSTALL
+  curl -L https://openresty.org/download/$OPENRESTY_BASE.tar.gz | tar xz
+
+  pushd $OPENRESTY_BASE
+    ./configure \
+      --prefix=$OPENRESTY_INSTALL \
+      --with-openssl=../$OPENSSL_BASE \
+      --with-ipv6 \
+      --with-pcre-jit \
+      --with-http_ssl_module \
+      --with-http_realip_module \
+      --with-http_stub_status_module
+    make
+    make install
+  popd
+
+  rm -rf $OPENRESTY_BASE
 
   # ----------------
   # Install Luarocks
@@ -37,7 +59,7 @@ if [ ! "$(ls -A $CACHE_DIR)" ]; then
   mkdir -p $KONG_BASE
   pushd $KONG_BASE
   wget -O "precise_all.deb" "https://github.com/Mashape/kong/releases/download/$KONG_VERSION/kong-$KONG_VERSION.precise_all.deb"
-  sudo dpkg -i "precise_all.deb" || true
+  dpkg -i "precise_all.deb" || true
   popd
   rm -rf $KONG_BASE
 
