@@ -1,6 +1,6 @@
 DEV_ROCKS = busted luacheck lua-llthreads2
 BUSTED_ARGS ?= -o gtest -v --exclude-tags=ci
-TEST_CMD ?= bin/busted $(BUSTED_ARGS)
+TEST_CMD ?= busted $(BUSTED_ARGS)
 KONG_PATH ?=/kong
 PLUGIN_NAME := kong-plugin-hello-world
 
