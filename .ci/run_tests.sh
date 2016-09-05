@@ -1,7 +1,7 @@
 set -e
 
 export BUSTED_ARGS="-o gtest -v --exclude-tags=ci"
-export TEST_CMD="bin/busted $BUSTED_ARGS"
+export TEST_CMD="busted $BUSTED_ARGS"
 
 current_user=$(whoami)
 
